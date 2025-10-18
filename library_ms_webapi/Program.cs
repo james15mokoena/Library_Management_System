@@ -1,4 +1,13 @@
+using library_ms_webapi.Data;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
+
+// get the connection string to the library database "librarydb".
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
+// register the AppDbContext with the DI container.
+builder.Services.AddDbContext<AppDbContext>(options => options.UseMySql(connectionString,ServerVersion.AutoDetect(connectionString)));
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
