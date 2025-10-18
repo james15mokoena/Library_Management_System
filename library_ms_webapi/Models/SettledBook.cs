@@ -44,6 +44,6 @@ namespace library_ms_webapi.Models
         /// </summary>
         [Column("SettledDate")]
         [DataType(DataType.Date)]
-        public required DateTime SettleDate{ get; set; }
+        public required DateTime SettledDate{ get; set; }
     }
 }

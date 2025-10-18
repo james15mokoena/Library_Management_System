@@ -1,4 +1,4 @@
-# Idenfifying Uses Cases & Actors
+# Identifying Uses Cases & Actors
 
 ## A. Objective
 
@@ -10,8 +10,7 @@
 
 > 1. Librarian
 > 2. Member
-> 3. Library Staff
-> 4. Manager
+> 3. Manager
 
 ---
 
@@ -40,6 +39,9 @@
 > 16. To __generate usage__ statistics on most borrowed books.
 > 17. To __generate usage__ statistics on popular genres.
 > 18. To __generate usage__ statistics on member borrowing trends.
+> 19. To __oversee check-ins__ of books.
+> 20. To __oversee check-outs__ of books.
+> 21. To __manage fines__.
 
 ### C.2 Member
 
@@ -52,15 +54,6 @@
 > 5. To __update their profile__.
 > 6. To __access their borrowing history__.
 > 7. To __access their current loans__.
-
-### C.3 Library Staff
-
-> The system should allow a Library Staff:
->
-> 1. To __oversee check-ins__.
-> 2. To __oversee check-outs__.
-> 3. To __manage fines__.
-> 4. To __generate detailed reports__.
 
 ---
 
@@ -116,22 +109,7 @@
 > 11. Staff ID
 > 11. User Role
 
-### D.5 Library Staff
-
-> 1. First Name
-> 2. Middle Name
-> 3. Last Name
-> 4. House Number and Street Name
-> 5. Suburb or Township
-> 6. City or Town
-> 7. Postal Code
-> 8. Province
-> 9. Phone Number
-> 10. Email
-> 11. Staff ID
-> 12. User Role
-
-### D.6 Overdue Book
+### D.5 Overdue Book
 
 > 1. Date Reserved.
 > 2. Due Date.
@@ -140,10 +118,17 @@
 > 5. Fine Amount  (everyday that passes after the due date, a member gets charged at least R50 per day)
 > 6. Number of days past due return.
 
-### D.6 Borrowed Books History
+### D.7 Borrowed Books History
+
+> 1. Date Reserved.
+> 2. Books ISBN
+> 3. Member ID
+
+### D.8 Settled Book
 
 > 1. Date Reserved.
 > 2. Due Date.
+> 3. Settled Date
 > 3. Books ISBN
 > 4. Member ID
 
