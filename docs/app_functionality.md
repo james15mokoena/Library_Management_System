@@ -38,5 +38,13 @@
 > 14. View stats on most borrowed books.
 > 15. View stats on popular genre.
 > 16. View stats on member borrowing trends.
+> 17. Login
+> 18. Logout
+> 19. View registered members.
+> 20. View their profile.
+> 21. Update their profile.
+> 22. Delete member account.
+> 23. View librarians.
+> 24. Register librarian account.
 
 ---
