@@ -14,5 +14,7 @@
             "username": "library_user",
             "name": "Library_MS"
         }
-    ]
+    ],
+    "editor.autoIndentOnPaste": true,
+    "editor.formatOnType": true
 }

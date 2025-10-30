@@ -1,1 +1,2 @@
-SELECT * FROM Members;
+SELECT * from Librarians;
+-- delete from Librarians;

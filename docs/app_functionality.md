@@ -17,10 +17,11 @@
 > 12. Make a payment.
 > 13. View stats on most popular books.
 > 14. View stats on most popular genre.
+> 15. View book.
 
 ---
 
-## ASP.NET Core Razor Web App
+## ASP NET Core Razor Web App
 
 > 1. View books in the catalog.
 > 2. Add books to the catalog.
@@ -46,5 +47,46 @@
 > 22. Delete member account.
 > 23. View librarians.
 > 24. Register librarian account.
+
+---
+
+## ASP NET Core Web API
+
+> 1. Librarian login.
+> 2. Librarian logout.
+> 3. Member login.
+> 4. Member logout.
+> 5. Fetch books catalog.
+> 6. Search for book.
+> 7. Reserve a book.
+> 8. Register library account (for member).
+> 9. Register library account (for librarian).
+> 10. View profile.
+> 11. Update profile.
+> 12. Delete member account.
+> 13. Delete librarian account.
+> 14. View book borrowing history.
+> 15. View currently reserved books.
+> 16. View currently overdue books.
+> 17. Make payment.
+> 18. View most popular books.
+> 19. View most popular genre.
+> 20. View book.
+> 21. Add book to catalog.
+> 22. Update book.
+> 23. Delete book.
+> 24. Assign book to a member (who reserved it).
+> 25. Unassign book from a member (who returned it).
+> 26. Update availability status of a book.
+> 27. Generate reports on library inventory.
+> 28. Generate reports on available books.
+> 29. Generate reports on check-out books.
+> 30. Generate reports on overdue books.
+> 31. Generate reports on fines.
+> 32. Generate stats on borrowed books.
+> 33. Generate stats on overdue books.
+> 34. Generate stats on member borrowing trends.
+> 35. View registered members.
+> 36. View librarians.
 
 ---

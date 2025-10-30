@@ -1,6 +1,4 @@
 @library_ms_webapi_HostAddress = http://localhost:5211
 
-GET {{library_ms_webapi_HostAddress}}/weatherforecast/
-Accept: application/json
 
 ###
