@@ -50,32 +50,7 @@ namespace library_ms_webapi.Services
             
             // user does not exist or parameters are null or empty.
             return false;
-        }
-
-        /// <summary>
-        /// It is responsible for authenticating "members" specifically so that we don't waste
-        /// time querying the librarians table when the user is a "Member".
-        /// </summary>
-        /// <param name="username"></param>
-        /// <param name="password"></param>
-        /// <param name="role"></param>
-        /// <returns></returns>
-        public bool LoginFromMobile(string username, string password)
-        {
-            return Login(username, password);
-        }
-
-        /// <summary>
-        /// It is responsible for authenticating "librarians" specifically so that we don't waste
-        /// time querying the members table when the user is a "Librarian".
-        /// </summary>
-        /// <param name="username"></param>
-        /// <param name="password"></param>
-        /// <returns></returns>
-        public bool LoginFromWeb(string username, string password)
-        {
-            return Login(username, password);
-        }        
+        }     
 
     }
 
