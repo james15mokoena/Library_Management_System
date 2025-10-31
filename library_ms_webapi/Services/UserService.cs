@@ -7,13 +7,18 @@ namespace library_ms_webapi.Services
     /// <summary>
     /// It provides the functionality for managing users.
     /// </summary>
-    public class UserService(AppDbContext context)
+    public class UserService(AppDbContext context, PasswordService passwordService)
     {
 
         /// <summary>
         /// Will be used to interact with the data.
         /// </summary>
-        private readonly AppDbContext database = context;      
+        private readonly AppDbContext database = context; 
+
+        /// <summary>
+        /// Will be used to hash user password during registration.
+        /// </summary>
+        private readonly PasswordService _passwordService = passwordService;     
 
         /// <summary>
         /// It is responsible for creating a user's account.
@@ -24,9 +29,14 @@ namespace library_ms_webapi.Services
         {
             if (IsDataValid(newUser))
             {
-                if (newUser is LibrarianDto)
+                
+                if (newUser is LibrarianDto lib)
                 {
-                    LibrarianDto lib = (newUser as LibrarianDto)!;
+                    lib = (newUser as LibrarianDto)!;
+
+                    // does a user with the same ID/username already exist?
+                    if (!IsUsernameUnique(lib.StaffId!))
+                        return false;
 
                     Librarian newLib = new()
                     {
@@ -36,7 +46,7 @@ namespace library_ms_webapi.Services
                         FirstName = lib.FirstName!,
                         MiddleName = lib.MiddleName!,
                         LastName = lib.LastName!,
-                        Password = lib.Password!,
+                        Password = _passwordService.GeneratePasswordHash(lib.Password!),
                         PhoneNumber = lib.PhoneNumber!,
                         Province = lib.Province!,
                         Role = lib.Role!,
@@ -47,9 +57,13 @@ namespace library_ms_webapi.Services
 
                     await database.Librarians.AddAsync(newLib);
                 }
-                else if (newUser is MemberDto)
+                else if (newUser is MemberDto mem)
                 {
-                    MemberDto mem = (newUser as MemberDto)!;
+                    mem = (newUser as MemberDto)!;
+
+                    // does a user with the same ID/username already exist?
+                    if (!IsUsernameUnique(mem.MemberId!))
+                        return false;
 
                     Member newMem = new()
                     {
@@ -59,7 +73,7 @@ namespace library_ms_webapi.Services
                         FirstName = mem.FirstName!,
                         MiddleName = mem.MiddleName!,
                         LastName = mem.LastName!,
-                        Password = mem.Password!,
+                        Password = _passwordService.GeneratePasswordHash(mem.Password!),
                         PhoneNumber = mem.PhoneNumber!,
                         Province = mem.Province!,
                         Role = mem.Role!,
@@ -148,7 +162,7 @@ namespace library_ms_webapi.Services
             // its neither Librarian nor Member, meaning the user does not exist.
             return false;
         }
-        
+
         /// <summary>
         /// Checks if a user with the given user ID exists, either as Member or Librarian.
         /// </summary>
@@ -167,7 +181,7 @@ namespace library_ms_webapi.Services
                     Member? member = database.Members.FirstOrDefault(m => m.MemberId == userId);
 
                     if (member != null)
-                        return member;                        
+                        return member;
                 }
                 else
                     return lib;
@@ -175,6 +189,16 @@ namespace library_ms_webapi.Services
 
             // no user exists with that ID.
             return null;
+        }
+        
+        /// <summary>
+        /// Checks if there's a user who already has the same ID/username.
+        /// </summary>
+        /// <param name="username"></param>
+        /// <returns></returns>
+        private bool IsUsernameUnique(string username)
+        {            
+            return UserExists(username) == null;
         }
     }
 }
