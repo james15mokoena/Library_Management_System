@@ -13,35 +13,14 @@ namespace library_ms_webapi.Services
         /// <summary>
         /// Will be used to interact with the data.
         /// </summary>
-        private readonly AppDbContext database = context;
-
-        /// <summary>
-        /// It is responsible for registering a librarian.
-        /// </summary>
-        /// <param name="newLibrarian"></param>
-        /// <returns></returns>
-        public async Task<bool> RegisterLibrarian(LibrarianDto newLibrarian)
-        {                
-            return await RegisterUser(newLibrarian);
-        }
-
-        /// <summary>
-        /// It is responsible for registering a student who is registered at the school
-        /// and wants to have a library account also.
-        /// </summary>
-        /// <param name="newMember"></param>
-        /// <returns></returns>
-        public async Task<bool> RegisterMember(MemberDto newMember)
-        {
-            return await RegisterMember(newMember);
-        }
+        private readonly AppDbContext database = context;      
 
         /// <summary>
         /// It is responsible for creating a user's account.
         /// </summary>
         /// <param name="newUser"></param>
         /// <returns></returns>
-        private async Task<bool> RegisterUser(IUserDto newUser)
+        public async Task<bool> RegisterUser(IUserDto newUser)
         {
             if (IsDataValid(newUser))
             {
@@ -138,36 +117,64 @@ namespace library_ms_webapi.Services
             }
 
             return false;
-        }
-
-        /// <summary>
-        /// It is responsible for removing a librarian's account.
-        /// </summary>
-        /// <param name="librarian"></param>
-        /// <returns></returns>
-        public bool RemoveLibrarian(LibrarianDto librarian)
-        {
-            return false;
-        }
-
-        /// <summary>
-        /// It is responsible for removing a member's account.
-        /// </summary>
-        /// <param name="member"></param>
-        /// <returns></returns>
-        public bool RemoveMember(MemberDto member)
-        {
-            return false;
-        }
+        }        
 
         /// <summary>
         /// It is responsible for removing the specified user.
         /// </summary>
-        /// <param name="user"></param>
+        /// <param name="userId"></param>
         /// <returns></returns>
-        private bool RemoveUser(IUserDto user)
+        public async Task<bool> RemoveUser(string userId)
         {
+            if (!string.IsNullOrEmpty(userId))
+            {
+                // is it a librarian to be removed?
+                if (UserExists(userId) is not Librarian lib)
+                {
+                    // is it a Member (that is, a student)?
+                    if (UserExists(userId) is Member member)
+                    {
+                        database.Members.Remove(member);
+                        return await database.SaveChangesAsync() > 0;
+                    }
+                }
+                else
+                {
+                    database.Librarians.Remove(lib);
+                    return await database.SaveChangesAsync() > 0;
+                }                        
+            }
+
+            // its neither Librarian nor Member, meaning the user does not exist.
             return false;
+        }
+        
+        /// <summary>
+        /// Checks if a user with the given user ID exists, either as Member or Librarian.
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public object? UserExists(string userId)
+        {
+            if (!string.IsNullOrEmpty(userId))
+            {
+                // is it a librarian's ID?
+                Librarian? lib = database.Librarians.FirstOrDefault(l => l.StaffId == userId);
+
+                if (lib == null)
+                {
+                    // is it a member's ID?
+                    Member? member = database.Members.FirstOrDefault(m => m.MemberId == userId);
+
+                    if (member != null)
+                        return member;                        
+                }
+                else
+                    return lib;
+            }
+
+            // no user exists with that ID.
+            return null;
         }
     }
 }
